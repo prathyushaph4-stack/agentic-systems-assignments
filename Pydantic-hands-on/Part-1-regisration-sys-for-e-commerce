@@ -1,0 +1,50 @@
+from pydantic import BaseModel, EmailStr, field_validator
+
+class Address(BaseModel):
+    city: str
+    pincode: str
+
+    @field_validator('city')
+    @classmethod
+    def validate_city(cls, v):
+        if len(v) < 3:
+            raise ValueError('City must have minimum length of 3')
+        return v
+
+    @field_validator('pincode')
+    @classmethod
+    def validate_pincode(cls, v):
+        if not v.isdigit() or len(v) != 6:
+            raise ValueError('Pincode must be exactly 6 digits')
+        return v
+
+
+class User(BaseModel):
+    model_config = {'validate_assignment': True}
+
+    user_id: int
+    name: str
+    email: EmailStr
+    age: int
+    address: Address
+    is_premium: bool = False
+
+    @field_validator('age')
+    @classmethod
+    def validate_age(cls, v):
+        if v < 18:
+            raise ValueError('Age must be at least 18')
+        return v
+    
+# Example usage
+try:
+    user = User(
+        user_id=1,
+        name="Prathyusha",
+        email="prathpharma@gmail.com",
+        age=37,
+        address=Address(city="Bangalore", pincode="560001")
+    )
+    print(user)
+except Exception as e:
+    print(f"Error: {e}")
