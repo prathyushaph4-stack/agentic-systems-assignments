@@ -1,0 +1,29 @@
+INFO:     Started server process [19652]
+INFO:     Waiting for application startup.
+2026-03-10 22:28:59,012 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-03-10 22:28:59,012 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("students")
+2026-03-10 22:28:59,012 INFO sqlalchemy.engine.Engine [raw sql] ()
+2026-03-10 22:28:59,012 INFO sqlalchemy.engine.Engine COMMIT
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:61608 - "GET / HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:61613 - "GET /docs HTTP/1.1" 200 OK
+2026-03-10 22:29:12,635 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-03-10 22:29:12,635 INFO sqlalchemy.engine.Engine SELECT students.id, students.name, students.age, students.city 
+FROM students
+2026-03-10 22:29:12,635 INFO sqlalchemy.engine.Engine [generated in 0.00021s] ()
+2026-03-10 22:29:12,635 INFO sqlalchemy.engine.Engine ROLLBACK
+INFO:     127.0.0.1:61615 - "GET /students HTTP/1.1" 200 OK
+2026-03-10 22:29:12,654 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-03-10 22:29:12,654 INFO sqlalchemy.engine.Engine INSERT INTO students (name, age, city) VALUES (?, ?, ?)
+2026-03-10 22:29:12,654 INFO sqlalchemy.engine.Engine [generated in 0.00020s] ('Alice', 22, 'Boston')
+2026-03-10 22:29:12,654 INFO sqlalchemy.engine.Engine COMMIT
+INFO:     127.0.0.1:61617 - "POST /students HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61623 - "GET /docs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61623 - "GET /openapi.json HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61625 - "GET /apple-touch-icon-precomposed.png HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:61625 - "GET /apple-touch-icon.png HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:61726 - "GET / HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:61726 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:61737 - "GET /student%3DST002 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:61743 - "GET /get_student%3DST002 HTTP/1.1" 404 Not Found

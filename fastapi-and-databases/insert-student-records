@@ -1,0 +1,9 @@
+from tables import create_tables
+from crud_operations import create_user
+
+# create_tables()
+
+# create_user('ST001', 'Prathyusha', 20, 'New York')
+# create_user('ST002', 'Pradeep', 22, 'Los Angeles')
+# create_user('ST003', 'Sreshta', 19, 'Chicago')
+# create_user('ST004', 'Aviva', 25, 'Seattle')
