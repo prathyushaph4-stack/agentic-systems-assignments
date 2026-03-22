@@ -1,0 +1,39 @@
+INFO:     Started server process [9209]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8002 (Press CTRL+C to quit)
+Before Request is processed
+Method: GET
+Path: /hello
+After Response is returned
+INFO:     127.0.0.1:56048 - "GET /hello HTTP/1.1" 200 OK
+Before Request is processed
+Method: GET
+Path: /unknown
+After Response is returned
+INFO:     127.0.0.1:56050 - "GET /unknown HTTP/1.1" 404 Not Found
+Before Request is processed
+Method: GET
+Path: /hello
+After Response is returned
+INFO:     127.0.0.1:56056 - "GET /hello HTTP/1.1" 200 OK
+Before Request is processed
+Method: GET
+Path: /unknown
+After Response is returned
+INFO:     127.0.0.1:56058 - "GET /unknown HTTP/1.1" 404 Not Found
+Before Request is processed
+Method: GET
+Path: /hello
+After Response is returned
+INFO:     127.0.0.1:56189 - "GET /hello HTTP/1.1" 200 OK
+Before Request is processed
+Method: GET
+Path: /favicon.ico
+After Response is returned
+INFO:     127.0.0.1:56189 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+Before Request is processed
+Method: GET
+Path: /unknown
+After Response is returned
+INFO:     127.0.0.1:56191 - "GET /unknown HTTP/1.1" 404 Not Found
