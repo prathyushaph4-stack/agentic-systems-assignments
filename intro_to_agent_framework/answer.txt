@@ -1,0 +1,77 @@
+# Agentic AI Frameworks
+
+## 1. Why Frameworks are Necessary
+
+Frameworks simplify development of Agentic AI systems by:
+- Designing correct prompt 
+- LLM configuration Designing
+- Decision making
+- Multiple LLM calls
+- Providing reusable components
+- Managing workflows and state
+- Enabling tool integration
+- Supporting multi-agent systems
+
+
+
+
+## 2. Framework Comparison
+
+### LangChain
+- It is a framework for building LLM applications and simple tools quickly.
+- Chain-based architecture.
+- It is in open source.
+- It can attach multiple tools and databases.
+- Best for beginners and quick prototypes.
+- Fast to implement.
+
+### LangGraph
+- It is builded on top of langchain.
+- Graph-based workflows.
+- Handles complex state and loops.
+- Best for advanced agent flows.
+- It can take autonomous actions.
+
+### CrewAI
+- Role-based multi-agent system.
+- Agents collaborate like a team.
+- Good for task delegation systems.
+
+### AutoGen
+- Conversation-based multi-agent system in Microsoft ecosystem.
+- Agents communicate with each other.
+- Strong for research and automation.
+
+### Google ADK
+- Enterprise-grade framework in Google ecosystem.
+- Scalable and production-ready.
+- Best for large systems.
+
+### Vercel AI SDK
+- Lightweight SDK.
+- It is used for building Agentic AI applications using Typescript tool.
+- Great for frontend + backend apps.
+- Ideal for quick AI integrations.
+
+### n8n
+- No-code / low-code automation tool.
+- Visual workflow builder.
+- Best for business automation.
+
+
+## 3. How to Select the Right Framework
+Different frameworks serve different purposes. Selecting the right one depends on the complexity, scale, and type of agent system you want to build.
+
+### Choose based on use case:
+
+- Simple single agent AI application like Simple chatbot → LangChain
+- Multiagent production grade AI application with more control over task flow → LangGraph
+- Multi-agent collaboration → CrewAI / AutoGen
+- Enterprise production in Google environment → Google ADK
+- Typescript application / Frontend apps → Vercel AI SDK
+- Automation workflows → n8n
+
+
+
+
+
