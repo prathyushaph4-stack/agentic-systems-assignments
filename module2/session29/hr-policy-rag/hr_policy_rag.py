@@ -10,23 +10,23 @@ from typing import List, Dict, Any
 # Import chromadb — this is our vector database library
 import chromadb
 
-# Import the OpenAI client to use embeddings and text generation
-from openai import OpenAI
+# Import the google client to use embeddings and text generation
+import google.generativeai as genai
+import os
 
 # -----------------------------------------------------------------------
-# Step 1: Initialize the OpenAI client
-# Make sure OPENAI_API_KEY is set as an environment variable before running
+# Step 1: Initialize the Google client
+# Make sure GOOGLE_API_KEY is set as an environment variable before running
 # -----------------------------------------------------------------------
-openai_client = OpenAI()
+genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
 # -----------------------------------------------------------------------
 # Step 2: Set the model names we will use throughout the code
 # EMBEDDING_MODEL converts text into vectors (numerical representations)
 # GENERATION_MODEL is the LLM that will generate the final answer
 # -----------------------------------------------------------------------
-EMBEDDING_MODEL = "text-embedding-3-small"  # OpenAI embedding model
-GENERATION_MODEL = "gpt-5.2"               # OpenAI LLM for text generation
-
+EMBEDDING_MODEL = "models/embedding-001"
+GENERATION_MODEL = "gemini-1.5-flash"
 # -----------------------------------------------------------------------
 # Step 3: Define the sample e-commerce policy documents
 # Each document has an id, the text content, and metadata (category + source)
@@ -92,11 +92,17 @@ POLICY_DOCUMENTS = [
 # Sends the texts to OpenAI and gets back a list of float vectors
 # -----------------------------------------------------------------------
 def create_embeddings(texts: List[str]) -> List[List[float]]:
-    response = openai_client.embeddings.create(
-        model=EMBEDDING_MODEL,   
-        input=texts              
-    )
-    embeddings = [item.embedding for item in response.data]
+    embeddings = []
+
+    for text in texts:
+        response = genai.embed_content(
+            model=EMBEDDING_MODEL,
+            content=text,
+            task_type="retrieval_document"
+        )
+
+        embeddings.append(response["embedding"])
+
     return embeddings
 
 
@@ -246,28 +252,21 @@ Final Answer:"""
 # This is the "Generation" part of Retrieval-Augmented Generation
 # -----------------------------------------------------------------------
 def generate_answer_from_context(query: str, chunks: List[Dict[str, Any]]) -> str:
-    # Build the grounded prompt by injecting retrieved policy chunks
+
     prompt = build_grounded_prompt(query, chunks)
 
-    # Call the OpenAI LLM with the grounded prompt
-    response = openai_client.responses.create(
-        model=GENERATION_MODEL,    # Use the generation model we defined
-        instructions=(
-            "You are a precise and helpful HR policy assistant."  # System instruction
-        ),
-        input=prompt               # The grounded prompt with policy context
-    )
+    model = genai.GenerativeModel(GENERATION_MODEL)
 
-    # Return the generated text from the LLM response
-    return response.output_text
+    response = model.generate_content(prompt)
 
+    return response.text
 # -----------------------------------------------------------------------
 # Step 11: Standalone LLM function — answers WITHOUT any retrieval
 # This is for comparison: shows how the LLM answers from memory alone
 # -----------------------------------------------------------------------
 def generate_answer_without_retrieval(query: str) -> str:
     # Call the OpenAI LLM without any retrieved policy context
-    response = openai_client.responses.create(
+    response = genai.GenerativeModel.responses.create(
         model=GENERATION_MODEL,    # Same generation model
         instructions=(
             "You are a helpful e-commerce customer support assistant. "
